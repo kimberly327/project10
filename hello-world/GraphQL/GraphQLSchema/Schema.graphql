@@ -1,4 +1,4 @@
-type Parent{                    
+type Parent {                    
     PK: String!
     SK: String!
     children: [Child]

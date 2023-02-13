@@ -85,11 +85,11 @@ Resources:
         TableName: !Ref DDBTable
         AwsRegion: !Sub ${AWS::Region}
 
-  #AppSyncSchema:
-  #  Type: "AWS::AppSync::GraphQLSchema"
-  #  Properties:
-  #    ApiId: !GetAtt AppSyncApi.ApiId     
-  #    Definition: hello-world/GraphQL/GraphQLSchema/Schema.vtl
+  AppSyncSchema:
+    Type: "AWS::AppSync::GraphQLSchema"
+    Properties:
+      ApiId: !GetAtt AppSyncApi.ApiId     
+      DefinitionS3Location: hello-world/GraphQL/GraphQLSchema/Schema.graphql
 
 
   ApplicationResourceGroup:
