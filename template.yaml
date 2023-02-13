@@ -91,6 +91,16 @@ Resources:
       ApiId: !GetAtt AppSyncApi.ApiId     
       DefinitionS3Location: hello-world/GraphQL/GraphQLSchema/Schema.graphql
 
+   GetParentAndChildResolver:
+    Type: "AWS::AppSync::Resolver"
+    DependsOn: AppSyncSchema
+    Properties:
+      ApiId: !GetAtt AppSyncApi.ApiId
+      TypeName: Query
+      FieldName: getParentWithChildren
+      DataSourceName: !GetAtt DDBDataSource.Name
+      RequestMappingTemplateS3Location: hello-world/GraphQL/Resolver/GetParentAndChildResolver/Request.vtl
+      ResponseMappingTemplateS3Location: hello-world/GraphQL/Resolver/GetParentAndChildResolver/Response.vtl
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
