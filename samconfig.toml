@@ -1,0 +1,13 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "AppSyncOnDDB"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-u0fscug1va48"
+s3_prefix = "AppSyncOnDDB"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = "Stage=\"Dev\" MainStackName=\"AppSyncOnDynamo\" tableDDBName=\"SimpleTable\""
+image_repositories = []
