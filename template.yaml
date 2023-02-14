@@ -45,7 +45,7 @@ Resources:
           - Effect: Allow
             Principal:
               Service:
-                - apigateway.amazonaws.com
+                - appsync.amazonaws.com
             Action: sts:AssumeRole
       Policies:
         - PolicyName: DynamoDBAccess
@@ -66,7 +66,6 @@ Resources:
     Description: "The GraphQL API for the single table App"
     Properties:
       Name: SingleTableApi
-      AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
       AuthenticationType: API_KEY
   
   AppSyncApiKey:
