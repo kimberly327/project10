@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  prject6
+  project10
 
   Sample SAM Template for prject6
 
@@ -66,7 +66,11 @@ Resources:
     Description: "The GraphQL API for the single table App"
     Properties:
       Name: SingleTableApi
-      AuthenticationType: API_KEY
+      AuthenticationType: "AMAZON_COGNITO_USER_POOLS"
+      UserPoolConfig:
+        UserPoolId: !Ref CognitoAuthorizerUserPool
+        AwsRegion: eu-west-1
+        DefaultAction: DENY
   
   AppSyncApiKey:
     Type: AWS::AppSync::ApiKey
@@ -123,6 +127,34 @@ Resources:
       RequestMappingTemplateS3Location: hello-world/GraphQL/Resolver/CreateChildMutationResolver/Request.vtl
       ResponseMappingTemplateS3Location: hello-world/GraphQL/Resolver/CreateChildMutationResolver/Response.vtl
 
+  CognitoAuthorizerUserPool:
+    Type: "AWS::Cognito::UserPool"
+    Properties: 
+      UserPoolName: cognito-user-pool-userpool
+
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties: 
+      UserPoolId: !Ref CognitoAuthorizerUserPool
+
+
+  LambdaSignUpFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: hello-world/Lambda_handler
+      Handler: app.handler
+      Runtime: nodejs18.x
+      Architectures:
+      - x86_64
+      Events: 
+        MyEvent:
+          Type: Cognito
+          Properties:  
+            Trigger: 
+              - CustomMessage
+            UserPool: !Ref CognitoAuthorizerUserPool
+    
+
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
     Properties:
@@ -133,6 +165,7 @@ Resources:
           - Ref: AWS::StackName
       ResourceQuery:
         Type: CLOUDFORMATION_STACK_1_0
+
   ApplicationInsightsMonitoring:
     Type: AWS::ApplicationInsights::Application
     Properties:

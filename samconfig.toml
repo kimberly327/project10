@@ -2,12 +2,12 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "AppSyncOnDDB"
+stack_name = "CognitoWithAppsync"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-u0fscug1va48"
-s3_prefix = "AppSyncOnDDB"
+s3_prefix = "CognitoWithAppsync"
 region = "eu-west-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
-parameter_overrides = "Stage=\"Dev\" MainStackName=\"AppSyncOnDynamo\" tableDDBName=\"SimpleTable\""
+parameter_overrides = "Stage=\"Dev\" MainStackName=\"CognitoWithAppsync\" tableDDBName=\"OrdinaryTable\""
 image_repositories = []
